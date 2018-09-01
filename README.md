@@ -1,6 +1,6 @@
 AudioPlayer
 ===========
-[![Build Status](https://travis-ci.org/delannoyk/AudioPlayer.svg)](https://travis-ci.org/delannoyk/AudioPlayer)
+[![Build Status](https://travis-ci.org/delannoyk/AudioPlayer.svg?branch=master)](https://travis-ci.org/delannoyk/AudioPlayer)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![CocoaPods Compatible](https://img.shields.io/cocoapods/v/KDEAudioPlayer.svg)
 ![Platform iOS | tvOS](https://img.shields.io/badge/platform-iOS%20%7C%20tvOS%20%7C%20OSX-lightgrey.svg)
@@ -11,7 +11,7 @@ AudioPlayer is a wrapper around AVPlayer. It also offers cool features such as:
 * Retry if player fails
 * Connection handling
 * Audio item enqueuing
-* Player mode (Repeat, Repeat all, Suffle)
+* Player mode (Repeat, Repeat all, Shuffle)
 * MPNowPlayingInfoCenter
 * A high level of customization
 
@@ -80,6 +80,14 @@ override func remoteControlReceivedWithEvent(event: UIEvent?) {
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
+
+## Todo list
+
+* Add a fully working example project
+* Integrate with SPM
+* Add more unit tests
+* Add Objective-C support if possible ([#67](https://github.com/delannoyk/AudioPlayer/issues/67))
+* Refactor current state handling
 
 ## License
 
