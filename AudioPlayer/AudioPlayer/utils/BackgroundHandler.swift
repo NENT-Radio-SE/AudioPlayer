@@ -43,10 +43,11 @@ class BackgroundHandler: NSObject {
     #if !os(OSX)
     /// The background task creator
     var backgroundTaskCreator: BackgroundTaskCreator = UIApplication.shared
-    #endif
-
     /// The backround task identifier if a background task started. Nil if not.
+    private var taskIdentifier: UIBackgroundTaskIdentifier?
+    #else
     private var taskIdentifier: Int?
+    #endif
 
     /// The number of background request received. When this counter hits 0, the background task, if any, will be
     /// terminated.
@@ -73,10 +74,10 @@ class BackgroundHandler: NSObject {
 
             taskIdentifier = backgroundTaskCreator.beginBackgroundTask { [weak self] in
                 if let taskIdentifier = self?.taskIdentifier {
-                    self?.backgroundTaskCreator.endBackgroundTask(UIBackgroundTaskIdentifier(rawValue: taskIdentifier))
+                    self?.backgroundTaskCreator.endBackgroundTask(taskIdentifier)
                 }
                 self?.taskIdentifier = nil
-            }.rawValue
+            }
             return true
         #endif
     }
@@ -99,8 +100,8 @@ class BackgroundHandler: NSObject {
                 return false
             }
 
-            if taskIdentifier != UIBackgroundTaskIdentifier.invalid.rawValue {
-                backgroundTaskCreator.endBackgroundTask(UIBackgroundTaskIdentifier(rawValue: taskIdentifier))
+            if taskIdentifier != UIBackgroundTaskIdentifier.invalid {
+                backgroundTaskCreator.endBackgroundTask(taskIdentifier)
             }
             self.taskIdentifier = nil
             return true

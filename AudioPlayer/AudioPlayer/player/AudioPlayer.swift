@@ -342,7 +342,6 @@ public class AudioPlayer: NSObject {
 
     /// Updates the MPNowPlayingInfoCenter with current item's info.
     func updateNowPlayingInfoCenter() {
-        return
         #if os(iOS) || os(tvOS)
             if let item = currentItem {
                 MPNowPlayingInfoCenter.default().ap_update(
@@ -361,13 +360,8 @@ public class AudioPlayer: NSObject {
     /// - Parameter active: A boolean value indicating whether the audio session should be set to active or not.
     func setAudioSession(active: Bool) {
         #if os(iOS) || os(tvOS)
-        if #available(iOS 10.0, tvOS 10.0, *) {
-            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-        } else {
-            // Workaround until https://forums.swift.org/t/using-methods-marked-unavailable-in-swift-4-2/14949 is fixed
-            AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playback)
-        }
-        try? AVAudioSession.sharedInstance().setActive(active)
+            _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            _ = try? AVAudioSession.sharedInstance().setActive(active)
         #endif
     }
 

@@ -137,7 +137,7 @@ class PlayerEventProducer_Tests: XCTestCase {
             name: AVAudioSession.interruptionNotification,
             object: player,
             userInfo: [
-                AVAudioSessionInterruptionTypeKey: NSNumber(value: AVAudioSession.InterruptionType.began.rawValue)
+                AVAudioSessionInterruptionTypeKey: AVAudioSession.InterruptionType.began
             ])
 
         let expectationEnds = expectation(description: "Waiting for `onEvent` to get called")
@@ -151,8 +151,8 @@ class PlayerEventProducer_Tests: XCTestCase {
             name: AVAudioSession.interruptionNotification,
             object: AVAudioSession.sharedInstance(),
             userInfo: [
-                AVAudioSessionInterruptionTypeKey: NSNumber(value: AVAudioSession.InterruptionType.ended.rawValue),
-                AVAudioSessionInterruptionOptionKey: NSNumber(value: AVAudioSession.InterruptionOptions.shouldResume.rawValue)
+                AVAudioSessionInterruptionTypeKey: AVAudioSession.InterruptionType.ended,
+                AVAudioSessionInterruptionOptionKey: AVAudioSession.InterruptionOptions.shouldResume
             ])
 
         waitForExpectations(timeout: 1) { e in

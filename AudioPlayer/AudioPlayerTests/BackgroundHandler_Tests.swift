@@ -26,18 +26,18 @@ class BackgroundHandler_Tests: XCTestCase {
 
     func testMultipleBeginDoesNotChangeIdentifier() {
         application.onBegin = { handler in
-            return UIBackgroundTaskIdentifier.init(rawValue: 1)
+            return UIBackgroundTaskIdentifier(rawValue: 1)
         }
         XCTAssert(backgroundHandler.beginBackgroundTask())
         application.onBegin = { handler in
-            return UIBackgroundTaskIdentifier.init(rawValue: 2)
+            return UIBackgroundTaskIdentifier(rawValue: 2)
         }
         XCTAssertFalse(backgroundHandler.beginBackgroundTask())
     }
 
     func testStartingThenEndingResetState() {
         application.onBegin = { handler in
-            return UIBackgroundTaskIdentifier.init(rawValue: 1)
+            return UIBackgroundTaskIdentifier(rawValue: 1)
         }
         XCTAssert(backgroundHandler.beginBackgroundTask())
 
@@ -57,7 +57,7 @@ class BackgroundHandler_Tests: XCTestCase {
         var handler: (() -> ())?
         application.onBegin = { h in
             handler = h
-            return UIBackgroundTaskIdentifier.init(rawValue: 1)
+            return UIBackgroundTaskIdentifier(rawValue: 1)
         }
         XCTAssert(backgroundHandler.beginBackgroundTask())
         XCTAssertNotNil(handler)

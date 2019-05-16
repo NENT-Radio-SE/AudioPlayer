@@ -27,19 +27,17 @@ class FakeReachability: Reachability {
     }
 
     override var currentReachabilityStatus: Reachability.NetworkStatus {
-        get {
-            return reachabilityStatus
-        }
+        return reachabilityStatus
     }
 }
 
 class FakeItem: AVPlayerItem {
     var bufferEmpty = true {
         willSet {
-            willChangeValue(forKey: "playbackBufferEmpty")
+            willChangeValue(forKey: #keyPath(AVPlayerItem.playbackBufferEmpty))
         }
         didSet {
-            didChangeValue(forKey: "playbackBufferEmpty")
+            didChangeValue(forKey: #keyPath(AVPlayerItem.playbackBufferEmpty))
         }
     }
 
@@ -49,10 +47,10 @@ class FakeItem: AVPlayerItem {
 
     var likelyToKeepUp = false {
         willSet {
-            willChangeValue(forKey: "playbackLikelyToKeepUp")
+            willChangeValue(forKey: #keyPath(AVPlayerItem.playbackLikelyToKeepUp))
         }
         didSet {
-            didChangeValue(forKey: "playbackLikelyToKeepUp")
+            didChangeValue(forKey: #keyPath(AVPlayerItem.playbackLikelyToKeepUp))
         }
     }
 
@@ -62,10 +60,10 @@ class FakeItem: AVPlayerItem {
 
     var timeRanges = [NSValue]() {
         willSet {
-            willChangeValue(forKey: "loadedTimeRanges")
+            willChangeValue(forKey: #keyPath(AVPlayerItem.loadedTimeRanges))
         }
         didSet {
-            didChangeValue(forKey: "loadedTimeRanges")
+            didChangeValue(forKey: #keyPath(AVPlayerItem.loadedTimeRanges))
         }
     }
 
@@ -75,10 +73,10 @@ class FakeItem: AVPlayerItem {
 
     var stat = AVPlayerItem.Status.unknown {
         willSet {
-            willChangeValue(forKey: "status")
+            willChangeValue(forKey: #keyPath(AVPlayerItem.status))
         }
         didSet {
-            didChangeValue(forKey: "status")
+            didChangeValue(forKey: #keyPath(AVPlayerItem.status))
         }
     }
 
@@ -88,10 +86,10 @@ class FakeItem: AVPlayerItem {
 
     var dur = CMTime() {
         willSet {
-            willChangeValue(forKey: "duration")
+            willChangeValue(forKey: #keyPath(AVPlayerItem.duration))
         }
         didSet {
-            didChangeValue(forKey: "duration")
+            didChangeValue(forKey: #keyPath(AVPlayerItem.duration))
         }
     }
 
@@ -110,10 +108,10 @@ class FakePlayer: AVPlayer {
     var observerClosure: ((CMTime) -> Void)?
     var item: FakeItem? {
         willSet {
-            willChangeValue(forKey: "currentItem")
+            willChangeValue(forKey: #keyPath(currentItem))
         }
         didSet {
-            didChangeValue(forKey: "currentItem")
+            didChangeValue(forKey: #keyPath(currentItem))
         }
     }
 
@@ -135,7 +133,8 @@ class FakePlayer: AVPlayer {
         observerClosure = nil
     }
 
-    @objc fileprivate func timerTicked(_: Timer) {
+    @objc
+    fileprivate func timerTicked(_: Timer) {
         let t = fabs(startDate!.timeIntervalSinceNow)
         observerClosure?(CMTime(timeInterval: t))
     }
